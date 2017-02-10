@@ -1,0 +1,1 @@
+web: npm install pm2 -g && node production.js
