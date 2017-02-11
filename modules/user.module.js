@@ -1,5 +1,4 @@
 var data = require('./data.module.js');
-var Cabinets = require('./cabinet.module.js');
 var bcrypt = require('bcryptjs');
 
 //inserts a use in a specific collection

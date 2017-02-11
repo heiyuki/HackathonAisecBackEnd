@@ -4,7 +4,7 @@ var data = require('./data.module.js');
 module.exports.getAll = function (query) {
     return new Promise(function (resolve, reject) {
         data.connect().then(function (db) {
-            var collection = db.collection('specialites');
+            var collection = db.collection('mouvements');
             collection.find(query).toArray(function (err, items) {
                 if (err) {
                   db.close();
@@ -25,7 +25,7 @@ module.exports.get = function (id) {
     return new Promise(function (resolve, reject) {
         data.connect().then(function (db) {
             if (id.length == 24) {
-                var collection = db.collection('specialites');
+                var collection = db.collection('mouvements');
                 collection.findOne(data.ObjectId(id), function (err, items) {
                   db.close();
                     if (err) {
@@ -45,7 +45,7 @@ module.exports.get = function (id) {
 module.exports.add = function (specialite) {
         return new Promise(function (resolve, reject) {
             data.connect().then(function (db) {
-                var collection = db.collection('specialites');
+                var collection = db.collection('mouvements');
                 collection.insert(specialite, function (err, result) {
                   db.close();
                     if (err) {
@@ -61,13 +61,13 @@ module.exports.add = function (specialite) {
 module.exports.update = function (id, specialite) {
     return new Promise(function (resolve, reject) {
         data.connect().then(function (db) {
-            var collection = db.collection('specialites');
+            var collection = db.collection('mouvements');
             collection.updateOne({
                 "_id": data.ObjectId(id)
             }, {
                 $set: specialite
             }, function (err, result) {
-              
+
                 db.close();
                 if (err) {
                     reject(err);
@@ -82,7 +82,7 @@ module.exports.update = function (id, specialite) {
 module.exports.delete = function (id, specialite) {
     return new Promise(function (resolve, reject) {
         data.connect().then(function (db) {
-            var collection = db.collection('specialites');
+            var collection = db.collection('mouvements');
             collection.remove({
                 "_id": data.ObjectId(id)
             }, function (err, result) {
@@ -91,31 +91,6 @@ module.exports.delete = function (id, specialite) {
                     reject(err);
                 } else {
                     resolve(result);
-                }
-            });
-        });
-    });
-}
-module.exports.getSpecsFromIds = function(ids) {
-    return new Promise(function(resolve, reject) {
-        data.connect().then(function(db) {
-            var specList = [];
-            for (var i = 0; i < ids.length; i++) {
-                if (ids[i].length == 24) {
-                    specList.push(data.ObjectId(ids[i]));
-                }
-            }
-            var collection = db.collection('specialites');
-            collection.find({
-                _id: {
-                    $in: specList
-                }
-            }).toArray(function(err, items) {
-                db.close();
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(items);
                 }
             });
         });

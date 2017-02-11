@@ -67,6 +67,7 @@ app.use(lusca.nosniff());
 //Public Routers
 var authRouter = require('./routers/public/authentification.router.js');
 var usersRouter = require('./routers/public/users.router.js');
+var mouvementsRouter = require('./routers/public/mouvements.router.js');
 //Secure Routers
 var profileRouter = require('./routers/secure/profile.router.js');
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,6 +126,7 @@ secureRouter.use(function(req, res, next) {
 //Public APIs
 apiRouter.use('/authentification', authRouter);
 apiRouter.use('/users', usersRouter);
+apiRouter.use('/mouvements', mouvementsRouter);
 //Secure APIs
 secureRouter.use('/profile', profileRouter);
 

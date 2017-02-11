@@ -5,7 +5,7 @@ var ObjectId = mongo.ObjectId;
 var mongoport = 204;
 //local modules
 var directory = "../../modules";
-var specialites = require(directory + '/specialites.module.js');
+var mouvements = require(directory + '/mouvements.module.js');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////GET METHODES
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
     if (req.headers['if-match']) {
         query.name = req.headers['if-match'];
     }
-    specialites.getAll(query).then(function(items) {
+    mouvements.getAll(query).then(function(items) {
         res.json(items);
     }, function(err) {
         console.log(err);
@@ -25,7 +25,7 @@ router.get('/', function(req, res) {
 ////////////GET By ID
 router.get('/:id', function(req, res) {
     if (req.params.id.length != 24) {
-        specialites.get(req.params.id).then(function(items) {
+        mouvements.get(req.params.id).then(function(items) {
             res.json(items);
         }, function(err) {
             if (err == "Invalid ID") {
@@ -44,10 +44,10 @@ router.get('/:id', function(req, res) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////POST
 router.post('/', function(req, res) {
-    specialites.add(req.body).then(function(result) {
+    mouvements.add(req.body).then(function(result) {
         res.status(201).send(result);
     }, function() {
-        console.log("Unable to Add Specialites");
+        console.log("Unable to Add mouvements");
         res.status(500).send();
     });
 });
@@ -57,7 +57,7 @@ router.post('/', function(req, res) {
 /////////PUT
 router.put('/:id', function(req, res) {
     if (req.params.id.length == 24) {
-        specialites.update(req.params.id, req.body).then(function(result) {
+        mouvements.update(req.params.id, req.body).then(function(result) {
             res.status(202).send(result);
         }, function() {
             res.status(500).send();
@@ -73,7 +73,7 @@ router.put('/:id', function(req, res) {
 /////////DELETE
 router.delete('/:id', function(req, res) {
     if (req.params.id.length == 24) {
-        specialites.delete(req.params.id).then(function() {
+        mouvements.delete(req.params.id).then(function() {
             res.status(202).send();
         }, function() {
             res.status(500).send();
