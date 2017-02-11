@@ -72,7 +72,6 @@ module.exports.update = function(id, user) {
         data.connect().then(function(db) {
             var collection = db.collection('users');
             delete user._id;
-            Cabinets.updateAdminMedecin(id,user);
             collection.updateOne({
                 "_id": data.ObjectId(id)
             }, {
