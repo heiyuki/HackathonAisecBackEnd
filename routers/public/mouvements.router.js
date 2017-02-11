@@ -24,7 +24,7 @@ router.get('/', function(req, res) {
 });
 ////////////GET By ID
 router.get('/:id', function(req, res) {
-    if (req.params.id.length != 24) {
+    if (req.params.id.length == 24) {
         mouvements.get(req.params.id).then(function(items) {
             res.json(items);
         }, function(err) {
@@ -39,6 +39,25 @@ router.get('/:id', function(req, res) {
         res.status(404).send();
     }
 });
+
+////////////GET By Author
+router.get('/byauthor/:id', function(req, res) {
+    if (req.params.id.length == 24) {
+        mouvements.getByAuthor(req.params.id).then(function(items) {
+            res.json(items);
+        }, function(err) {
+            if (err == "Invalid ID") {
+                res.status(400).send();
+            } else {
+                console.log(err);
+                res.status(500).send();
+            }
+        });
+    } else {
+        res.status(404).send();
+    }
+});
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////POST METHODES
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
