@@ -6,7 +6,7 @@ var maxMemory = process.env.WEB_MEMORY || 512;    // " " "
 pm2.connect(function() {
   pm2.start({
     script    : 'server.js',
-    name      : 'hackaton',     // ----> THESE ATTRIBUTES ARE OPTIONAL:
+    name      : 'hackathon',     // ----> THESE ATTRIBUTES ARE OPTIONAL:
     exec_mode : 'cluster',            // ----> https://github.com/Unitech/PM2/blob/master/ADVANCED_README.md#schema
     instances : instances,
     max_memory_restart : maxMemory + 'M',   // Auto restart if process taking more than XXmo
