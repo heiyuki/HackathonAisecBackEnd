@@ -7,7 +7,7 @@ module.exports.ObjectId = ObjectId;
 module.exports.connect = function () {
     return new Promise(function (resolve, reject) {
         var client = mongo.MongoClient;
-        var url = "mongodb://heiyuki:akaiame0@ds139198.mlab.com:39198/moncabinettn"
+        var url = "mongodb://localhost:27017/yedwahda"
         client.connect(url, function (err, db) {
             if (err) {
                 reject(err);

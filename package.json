@@ -9,8 +9,15 @@
   "author": "heiyukidev <heiyukidev@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.16.0",
+    "config": "^1.25.1",
     "express": "^4.14.1",
-    "mongodb": "^2.2.22"
+    "express-validator": "^3.1.2",
+    "jsonwebtoken": "^7.2.1",
+    "lusca": "^1.4.1",
+    "mongodb": "^2.2.22",
+    "randomstring": "^1.1.5",
+    "sanitizer": "^0.1.3"
   }
 }

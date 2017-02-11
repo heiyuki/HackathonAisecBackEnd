@@ -1,6 +1,7 @@
 var data = require('./data.module.js');
 var Cabinets = require('./cabinet.module.js');
 var bcrypt = require('bcryptjs');
+
 //inserts a use in a specific collection
 module.exports.addUser = function(user) {
     return new Promise(function(resolve, reject) {

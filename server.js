@@ -6,6 +6,7 @@ var bodyparser = require('body-parser');
 var jwt = require('jsonwebtoken');
 var lusca = require('lusca');
 var configManager = require('config');
+var expressValidator = require('express-validator');
 
 var app = express();
 
@@ -63,14 +64,38 @@ app.use(lusca.nosniff());
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////Requiring Local Modules
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-var cabinets = require('./routers/public/cabinets.router.js');
+//Public Routers
+var authRouter = require('./routers/public/authentification.router.js');
+var usersRouter = require('./routers/public/users.router.js');
+//Secure Routers
+var profileRouter = require('./routers/secure/profile.router.js');
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////Configuration MiddleWare
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //BodyParser
 app.use(bodyparser());
+
+
+//express-validator
+app.use(expressValidator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.'),
+            root = namespace.shift(),
+            formParam = root;
+
+        while (namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param: formParam,
+            msg: msg,
+            value: value
+        };
+    }
+}));
+
+
 
 //secure router middleware
 secureRouter.use(function(req, res, next) {
@@ -98,17 +123,14 @@ secureRouter.use(function(req, res, next) {
 ////////////////Routing
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //Public APIs
-apiRouter.use('/specialites', specialites);
-
+apiRouter.use('/authentification', authRouter);
+apiRouter.use('/users', usersRouter);
 //Secure APIs
-secureRouter.use('/profile', profile);
+secureRouter.use('/profile', profileRouter);
 
 //Global routing
 app.use('/api', apiRouter);
 app.use('/secure', secureRouter);
-app.get('/', function(req, res) {
-    res.render('index');
-});
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////Listen Port
