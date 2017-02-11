@@ -27,7 +27,6 @@ app.use((req,res,next)=>{
   next();
 });
 //Enabling cors
-if (process.env.NODE_ENV == "production") {
     app.use(function(req, res, next) {
         res.header('Access-Control-Allow-Origin', configManager.get("host"));
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -40,7 +39,7 @@ if (process.env.NODE_ENV == "production") {
             next();
         }
     });
-}
+
 var cspParams = {
     policy: {
         "default-src": "'self' " + host,
